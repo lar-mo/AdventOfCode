@@ -1,0 +1,163 @@
+<!-- Advent of Code : Day 4, part 1 -->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advent of Code: Day 4, Part 1</title>
+    <style type="text/css" media="screen">
+      .question_answer {
+        font-size: 24px;
+        padding: 15px 0;
+        width: 50%;
+        margin: auto;
+        text-align: center;
+        vertical-align: middle;
+      }
+      #input_user_number {
+        height: 30px;
+        font-size: 22px;
+        vertical-align: middle;
+      }
+      #button_run {
+        background-color: #C0C0C0;
+        border: 1px solid #333;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        font-size: 24px;
+        margin: auto;
+        padding: auto;
+        text-decoration: none;
+        vertical-align: middle;
+      }
+      #button_run:active{
+        box-shadow: none;
+      }
+      button_run: {
+        outline: 0;
+      }
+      #span_result {
+        font-size: 24px;
+      }
+      .challenge_desc > * {
+        padding: 10px 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Advent of Code: Day 4</h1>
+      <h3>--- Part One ---</h3>
+      <h3>Secure Container</h3>
+    </div>
+    <div class="challenge_desc">
+      <div>
+        You arrive at the Venus fuel depot only to discover it's protected by a password. The Elves had written the password on a sticky note, but someone threw it out.
+      </div>
+      <div>
+        However, they do remember a few key facts about the password:
+        <br>
+        It is a six-digit number.
+        The value is within the range given in your puzzle input.
+        Two adjacent digits are the same (like 22 in 122345).
+        Going from left to right, the digits never decrease; they only ever increase or stay the same (like 111123 or 135679).
+      </div>
+      <div>
+        Other than the range rule, the following are true:
+        <br>
+        <ul>
+          <li>111111 meets these criteria (double 11, never decreases).</li>
+          <li>223450 does not meet these criteria (decreasing pair of digits 50).</li>
+          <li>123789 does not meet these criteria (no double).</li>
+        </ul>
+        How many different passwords within the range given in your puzzle input meet these criteria?
+      </div>
+      <div>
+        Your puzzle input is 246515-739105.
+        <br>
+        Your puzzle answer via the Python solution was <i>1048</i>.
+        <hr/>
+        <span id="output"></span>
+      </div>
+    </div>
+    <script type="text/javascript">
+    let output = document.querySelector('#output')
+
+      window.onload = function () {
+
+        // generate puzzle input from range
+        // The value is within the range given in your puzzle input.
+        let puzzle_input = []
+          for (let i=246515; i<=739105; i++) { // 246515-246601
+              puzzle_input.push(i);
+          }
+        // console.log("puzzle_input: ")
+        // console.log(puzzle_input)
+
+        // It is a six-digit number. Unnecessary as puzzle input specifies all 6 digits ints
+        let possible_passwords = []                                        // initialize first storage bucket
+        for (let i=0; i<puzzle_input.length; ++i) {                        // loop through each array item
+          if (puzzle_input[i] < 100000 || puzzle_input[i] >= 1000000) {    // if int does not have 6 digits ...
+            console.log(puzzle_input[i] + ': this number is not 6 digits') // ... show error
+          }                                                                // NOTE: This isn't actually doing much.
+
+          // convert integers in to array of digits
+          let puzzle_digits = (''+puzzle_input[i]).split('').map(Number)
+
+          // loops through each array
+          for (let j=0; j<puzzle_digits.length-1; ++j) {
+            // Two adjacent digits are the same (like 22 in 122345).
+            if (puzzle_digits[j] == puzzle_digits[j+1]) {                  // if adjacent digits are equal
+              possible_passwords.push(puzzle_digits)                       // then ad them to first storage bucket
+            }
+          }
+        }
+
+        // console.log("possible_passwords: ")
+        // console.log(possible_passwords)
+
+        // Remove duplicates from array
+        let res = []                                                       // initialize second storage bucket
+        for (let i=0; i<possible_passwords.length; ++i) {                  // loop through each array item
+            if (res.includes(possible_passwords[i])) {                     // if item already in 2nd bucket
+              continue                                                     // skip/do nothing, return to top of loop
+            } else {                                                       // otherwise,
+              res.push(possible_passwords[i])                              // add it to second storage bucket
+
+            }
+        }
+        // console.log("res: ")
+        // console.log(res)
+
+        // Going from left to right, the digits never decrease;
+        //    they only ever increase or stay the same (like 111123 or 135679).
+
+        function checkSeq(possible_password) {                             // utility function
+          let prev_n = 0                                                   // initialize temp variable
+          for (let n=0; n<possible_password.length; ++n) {                 // loop through each array item
+            if (prev_n > possible_password[n]) {                           // if prev digit is greater than cur digit
+              return false                                                 // return false (stop checking)
+            }
+            prev_n = possible_password[n]                                  // update temp variable to cur digit
+          }
+        }
+
+        let possible_passwords2 = []                                       // initialize third storage bucket
+        for (let k=0; k<res.length; ++k) {                                 // loop through each array item
+          if (checkSeq(res[k]) === undefined) {                            // if resp from checkSeq is undefined
+            possible_passwords2.push(res)                                  // add it to third storage bucket
+          }
+        }
+
+        if (possible_passwords2.length == 1048) {  // if the length of filtered list matches the correct answer
+          console.log("Pass!")                     // print "Pass" to console
+          output.innerHTML = 'Pass! '              // print "Pass!" to the page
+        }
+        console.log(possible_passwords2.length)    // print puzzle answer to console
+        let answer = possible_passwords2.length    // set var to puzzle answer
+
+        output.innerHTML += 'The puzzle answer via the Javascript solution is <b>' + answer + '</b>.'
+      }                                            // ^ print final answer to puzzle to the page
+    </script>
+  </body>
+</html>

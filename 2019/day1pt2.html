@@ -1,0 +1,113 @@
+<!-- Advent of Code : Day 1, part 2 -->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advent of Code: Day 1, Part 2</title>
+    <style type="text/css" media="screen">
+      .question_answer {
+        font-size: 24px;
+        padding: 15px 0;
+        width: 50%;
+        margin: auto;
+        text-align: center;
+        vertical-align: middle;
+      }
+      #input_user_number {
+        height: 30px;
+        font-size: 22px;
+        vertical-align: middle;
+      }
+      #button_run {
+        background-color: #C0C0C0;
+        border: 1px solid #333;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        font-size: 24px;
+        margin: auto;
+        padding: auto;
+        text-decoration: none;
+        vertical-align: middle;
+      }
+      #button_run:active{
+        box-shadow: none;
+      }
+      button_run: {
+        outline: 0;
+      }
+      #span_result {
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Advent of Code: Day 1</h1>
+      <h3>--- Part Two ---</h3>
+      <h3>Fuel Requirements</h3>
+    </div>
+    <div>
+      <div>
+        During the second Go / No Go poll, the Elf in charge of the Rocket Equation Double-Checker stops the launch sequence. Apparently, you forgot to include additional fuel for the fuel you just added.
+      </div>
+      <div>
+        Fuel itself requires fuel just like a module - take its mass, divide by three, round down, and subtract 2. However, that fuel also requires fuel, and that fuel requires fuel, and so on. Any mass that would require negative fuel should instead be treated as if it requires zero fuel; the remaining mass, if any, is instead handled by wishing really hard, which has no mass and is outside the scope of this calculation.
+      </div>
+      <div>
+        For example:<br><br>
+        <ul>
+          <li>A module of mass 14 requires 2 fuel. This fuel requires no further fuel (2 divided by 3 and rounded down is 0, which would call for a negative fuel), so the total fuel required is still just 2.</li>
+          <li>At first, a module of mass 1969 requires 654 fuel. Then, this fuel requires 216 more fuel (654 / 3 - 2). 216 then requires 70 more fuel, which requires 21 fuel, which requires 5 fuel, which requires no further fuel. So, the total fuel required for a module of mass 1969 is 654 + 216 + 70 + 21 + 5 = 966.</li>
+          <li>The fuel required by a module of mass 100756 and its fuel is: 33583 + 11192 + 3728 + 1240 + 411 + 135 + 43 + 12 + 2 = 50346.</li>
+        </ul>
+      </div>
+      <div>
+        What is the sum of the fuel requirements for all of the modules on your spacecraft when also taking into account the mass of the added fuel? (Calculate the fuel requirements for each module separately, then add them all up at the end.)
+        <h3>Your puzzle answer via the Python solution was <i>5122170</i>.</h3>
+        <hr>
+        <span id="output"></span>
+      </div>
+    </div>
+    <script type="text/javascript" src="day1_data.js"></script> <!-- load data from external file -->
+    <script type="text/javascript">
+    let output = document.querySelector('#output')
+
+      window.onload = function () {
+
+        let calc_fr = []
+        for (let i=0; i<mass.length; ++i) {
+          let calc_fr_sub = []
+          let mass_int = parseInt(mass[i], 10)
+          while (mass_int >= 0) {
+            // calulation: F = M divide by 3, round down and subtract 2
+            fuel_req = mass_int / 3 - 2
+            calc_fr_sub.push(Math.floor(fuel_req))
+            mass_int = fuel_req
+          }
+          calc_fr_sub.pop()
+          // console.log(calc_fr_sub)
+
+          // add all items in the list to get the TOTAL
+          let grand_total_sub = 0
+          for (let i=0; i<calc_fr_sub.length; ++i) {
+            grand_total_sub += calc_fr_sub[i]
+          }
+          calc_fr.push(grand_total_sub)
+        }
+        // console.log(calc_fr)
+
+        // add all items in the list to get the TOTAL
+        let grand_total = 0
+        for (let i=0; i<calc_fr.length; ++i) {
+          grand_total += calc_fr[i]
+        }
+        if (grand_total == 5122170) {
+          output.innerHTML = 'Pass! '
+        }
+        console.log(grand_total)
+        output.innerHTML += 'The puzzle answer via the Javascript solution is <b>' + grand_total + '</b>.'
+      }
+    </script>
+  </body>
+</html>

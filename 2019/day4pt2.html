@@ -1,0 +1,187 @@
+<!-- Advent of Code : Day 4, part 2 -->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advent of Code: Day 4, Part 2</title>
+    <style type="text/css" media="screen">
+      .question_answer {
+        font-size: 24px;
+        padding: 15px 0;
+        width: 50%;
+        margin: auto;
+        text-align: center;
+        vertical-align: middle;
+      }
+      #input_user_number {
+        height: 30px;
+        font-size: 22px;
+        vertical-align: middle;
+      }
+      #button_run {
+        background-color: #C0C0C0;
+        border: 1px solid #333;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        font-size: 24px;
+        margin: auto;
+        padding: auto;
+        text-decoration: none;
+        vertical-align: middle;
+      }
+      #button_run:active{
+        box-shadow: none;
+      }
+      button_run: {
+        outline: 0;
+      }
+      #span_result {
+        font-size: 24px;
+      }
+      .challenge_desc > * {
+        padding: 10px 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Advent of Code: Day 4</h1>
+      <h3>--- Part Two ---</h3>
+      <h3>Secure Container</h3>
+    </div>
+    <div class="challenge_desc">
+      <div>
+        An Elf just remembered one more important detail: the two adjacent matching digits are not part of a larger group of matching digits.
+      </div>
+      <div>
+        Given this additional criterion, but still ignoring the range rule, the following are now true:
+        <ul>
+          <li>112233 meets these criteria because the digits never decrease and all repeated digits are exactly two digits long.</li>
+          <li>123444 no longer meets the criteria (the repeated 44 is part of a larger group of 444).</li>
+          <li>111122 meets the criteria (even though 1 is repeated more than twice, it still contains a double 22).</li>
+        </ul>
+      </div>
+        How many different passwords within the range given in your puzzle input meet these criteria?
+      </div>
+      <div>
+        Your puzzle input is 246515-739105.
+        <br>
+        Your puzzle answer via the Python solution was <i>677</i>.
+        <hr/>
+        <span id="output"></span>
+      </div>
+    </div>
+    <script type="text/javascript">
+    let output = document.querySelector('#output')
+
+      window.onload = function () {
+
+        // generate puzzle input from range
+        // The value is within the range given in your puzzle input.
+        let puzzle_input = []
+        for (let i=246515; i<=739105; i++) { // i=246515; i<=739105; tests i=246515; i<=249105;
+            puzzle_input.push(i);
+        }
+
+        // console.log("puzzle_input: ")
+        // console.log(puzzle_input)
+
+        // It is a six-digit number.
+        let possible_passwords = []
+        for (let i=0; i<puzzle_input.length; ++i) {
+          if (puzzle_input[i] < 100000 || puzzle_input[i] >= 1000000) {
+            console.log(puzzle_input[i] + ': this number is not 6 digits')
+          }
+
+          // convert integers in to array of digits
+          let puzzle_digits = (''+puzzle_input[i]).split('').map(Number)
+
+          // loops through each array
+          for (let j=0; j<puzzle_digits.length-1; ++j) {
+            // Two adjacent digits are the same (like 22 in 122345).
+            if (puzzle_digits[j] == puzzle_digits[j+1]) {
+              possible_passwords.push(puzzle_digits)
+            }
+          }
+        }
+
+        // Remove duplicates from array
+        let res = []
+        for (let i=0; i<possible_passwords.length; ++i) {
+            if (res.includes(possible_passwords[i])) {
+              continue
+            } else {
+              res.push(possible_passwords[i])
+
+            }
+        }
+
+        // Going from left to right, the digits never decrease;
+        // they only ever increase or stay the same (like 111123 or 135679).
+
+        function checkSeq(possible_password) {
+          let prev_n = 0
+          for (let n=0; n<possible_password.length; ++n) {
+            if (prev_n > possible_password[n]) {
+              return false
+            }
+            prev_n = possible_password[n]
+          }
+        }
+
+        let possible_passwords2 = []
+        for (let k=0; k<res.length; ++k) {
+          if (checkSeq(res[k]) === undefined) {
+            possible_passwords2.push(res[k])
+          }
+        }
+
+        // console.log(possible_passwords2.length)
+        // console.log(possible_passwords2)
+
+        // the two adjacent matching digits are not part of a larger group of matching digits
+        function checkCounts(poss_pwd) {
+          let counts = []
+          let current_digit = ''
+          for (let r=0; r<poss_pwd.length; ++r) {
+            if (current_digit != poss_pwd[r]) {
+              counts.push({
+                digit: poss_pwd[r],
+                count: 1,
+              })
+            } else {
+              const objIndex = counts.findIndex(obj => obj.digit === poss_pwd[r])
+              counts[objIndex].count = counts[objIndex].count + 1
+            }
+            current_digit = poss_pwd[r]
+          }
+          for (let i=0; i<counts.length; ++i) {
+            if (Object.values(counts[i])[1] == 2) {
+              return true
+            }
+          }
+        }
+
+        let final_candidates = []
+        for (let q=0; q<possible_passwords2.length; ++q) {
+          if (checkCounts(possible_passwords2[q])) {
+            final_candidates.push(possible_passwords2[q])
+          }
+        }
+
+        if (final_candidates.length == 677) {   // if the length of filtered list matches the correct answer
+          console.log("Pass!")                     // print "Pass" to console
+          output.innerHTML = 'Pass! '              // print "Pass!" to the page
+        } else {
+          console.log("Incorrect")
+          output.innerHTML = 'Incorrect. '
+        }
+        console.log(final_candidates.length)
+        let answer = final_candidates.length
+
+        output.innerHTML += 'The puzzle answer via the Javascript solution is <b>' + answer + '</b>.'
+      }                                            // ^ print final answer to puzzle to the page
+    </script>
+  </body>
+</html>

@@ -1,0 +1,159 @@
+<!-- Advent of Code : Day 2, part 1 -->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advent of Code: Day 2, Part 1</title>
+    <style type="text/css" media="screen">
+      .question_answer {
+        font-size: 24px;
+        padding: 15px 0;
+        width: 50%;
+        margin: auto;
+        text-align: center;
+        vertical-align: middle;
+      }
+      #input_user_number {
+        height: 30px;
+        font-size: 22px;
+        vertical-align: middle;
+      }
+      #button_run {
+        background-color: #C0C0C0;
+        border: 1px solid #333;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        font-size: 24px;
+        margin: auto;
+        padding: auto;
+        text-decoration: none;
+        vertical-align: middle;
+      }
+      #button_run:active{
+        box-shadow: none;
+      }
+      button_run: {
+        outline: 0;
+      }
+      #span_result {
+        font-size: 24px;
+      }
+      .challenge_desc > * {
+        padding: 10px 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Advent of Code: Day 2</h1>
+      <h3>--- Part One ---</h3>
+      <h3>1202 Program Alarm</h3>
+    </div>
+    <div class="challenge_desc">
+      <div>
+        On the way to your gravity assist around the Moon, your ship computer beeps angrily about a "1202 program alarm". On the radio, an Elf is already explaining how to handle the situation: "Don't worry, that's perfectly norma--" The ship computer bursts into flames.
+      </div>
+      <div>
+        You notify the Elves that the computer's magic smoke seems to have escaped. "That computer ran Intcode programs like the gravity assist program it was working on; surely there are enough spare parts up there to build a new Intcode computer!"
+      </div>
+      <div>
+        An Intcode program is a list of integers separated by commas (like 1,0,0,3,99). To run one, start by looking at the first integer (called position 0). Here, you will find an opcode - either 1, 2, or 99. The opcode indicates what to do; for example, 99 means that the program is finished and should immediately halt. Encountering an unknown opcode means something went wrong.
+      </div>
+      <div>
+        Opcode 1 adds together numbers read from two positions and stores the result in a third position. The three integers immediately after the opcode tell you these three positions - the first two indicate the positions from which you should read the input values, and the third indicates the position at which the output should be stored.
+      </div>
+      <div>
+        For example, if your Intcode computer encounters 1,10,20,30, it should read the values at positions 10 and 20, add those values, and then overwrite the value at position 30 with their sum.
+      </div>
+      <div>
+        Opcode 2 works exactly like opcode 1, except it multiplies the two inputs instead of adding them. Again, the three integers after the opcode indicate where the inputs and outputs are, not their values.
+      </div>
+      <div>
+        Once you're done processing an opcode, move to the next one by stepping forward 4 positions.
+        <br/><br/>
+        For example, suppose you have the following program:
+        <br/>
+        <pre>1,9,10,3,2,3,11,0,99,30,40,50</pre>
+        For the purposes of illustration, here is the same program split into multiple lines:
+        <pre>
+          1,9,10,3,
+          2,3,11,0,
+          99,
+          30,40,50
+        </pre>
+      </div>
+      <div>
+        The first four integers, 1,9,10,3, are at positions 0, 1, 2, and 3. Together, they represent the first opcode (1, addition), the positions of the two inputs (9 and 10), and the position of the output (3). To handle this opcode, you first need to get the values at the input positions: position 9 contains 30, and position 10 contains 40. Add these numbers together to get 70. Then, store this value at the output position; here, the output position (3) is at position 3, so it overwrites itself. Afterward, the program looks like this:
+          <pre>
+          1,9,10,70,
+          2,3,11,0,
+          99,
+          30,40,50
+          </pre>
+        </div>
+        <div>
+        Step forward 4 positions to reach the next opcode, 2. This opcode works just like the previous, but it multiplies instead of adding. The inputs are at positions 3 and 11; these positions contain 70 and 50 respectively. Multiplying these produces 3500; this is stored at position 0:
+          <pre>
+            3500,9,10,70,
+            2,3,11,0,
+            99,
+            30,40,50
+          </pre>
+        Stepping forward 4 more positions arrives at opcode 99, halting the program.
+        <br/><br/>
+        Here are the initial and final states of a few more small programs:
+        <br/><br/>
+        <pre>
+          1,0,0,0,99 becomes 2,0,0,0,99 (1 + 1 = 2).
+          2,3,0,3,99 becomes 2,3,0,6,99 (3 * 2 = 6).
+          2,4,4,5,99,0 becomes 2,4,4,5,99,9801 (99 * 99 = 9801).
+          1,1,1,4,99,5,6,0,99 becomes 30,1,1,4,2,5,6,0,99.
+        </pre>
+      </div>
+      <div>
+        Once you have a working computer, the first step is to restore the gravity assist program (your puzzle input) to the "1202 program alarm" state it had just before the last computer caught fire. To do this, before running the program, replace position 1 with the value 12 and replace position 2 with the value 2.
+      </div>
+      <div>
+        What value is left at position 0 after the program halts?
+        <h3>Your puzzle answer via the Python solution was <i>3562624</i>.</h3>
+        <hr>
+        <span id="output"></span>
+      </div>
+    </div>
+    <script type="text/javascript" src="day2_data.js"></script> <!-- load data from external file -->
+    <script type="text/javascript">
+    let output = document.querySelector('#output')
+
+      window.onload = function () {
+        intcode[1] = 12
+        intcode[2] = 2
+        let j = 0
+        let intcode_len = intcode.length / 4       // divide length of intcode by four (blocks of 4 ints)
+        intcode_len = Math.floor(intcode_len)      // integer divide (though it's likely unnecessary)
+        for (let i=0; i<intcode_len; ++i) {        // loop through the 'intcode' array
+
+            chunk = intcode.slice(j, j+4)          // grab a chunk of four ints from 'intcode'
+            j += 4                                 // increment the start point of block by 4
+
+            if (chunk[0] == 1) {                   // if pos0 of block(chunk) is 1, ...
+              intcode[chunk[3]] = intcode[chunk[1]] + intcode[chunk[2]] // ... do 'addition'
+            } else if (chunk[0] == 2) {            // if pos0 of block(chunk) is 2, ...
+              intcode[chunk[3]] = intcode[chunk[1]] * intcode[chunk[2]] // ... do 'multiplication'
+            } else if (chunk[0] == 99) {           // if pos0 of block(chunk) is 99, ...
+              break                                // ... exit the for loop
+            } else {                               // otherwise ...
+              console.log('Something went wrong!') // print 'Something went wrong' and
+              break                                // ... and exit the for loop
+            }
+        }
+        if (intcode[0] == 3562624) {               // if the intcode, pos 0 matches the correct answer
+          console.log("Pass!")                     // print "Pass" to console
+          output.innerHTML = 'Pass! '              // print "Pass!" to the page
+        }
+        console.log(intcode[0])                    // print final answer to puzzle to console
+        output.innerHTML += 'The puzzle answer via the Javascript solution is <b>' + intcode[0] + '</b>.'
+      }                                            // ^ print final answer to puzzle to the page
+    </script>
+  </body>
+</html>
