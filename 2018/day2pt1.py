@@ -70,6 +70,8 @@ for i in counts_3:                                              # loop through e
 # print(len(counts3unique))
 
 total = len(counts2unique) * len(counts3unique)
+if total == 4712:
+    print("Pass! ")
 print(f"{len(counts2unique)} x {len(counts3unique)} = {total}")
 
 print("--- %s seconds ---" % (time.time() - start_time))
