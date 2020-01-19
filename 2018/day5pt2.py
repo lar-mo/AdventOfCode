@@ -38,6 +38,8 @@ for letter in letters:                          # loop through every lowercase l
     results[letter] = length                    # save result to dictionary
 
 min = min(results, key=results.get)             # find the lowest 'score' (i.e. shortest polymer) in the dictionary
+if {results[min]} == 5094:
+    print("Pass! ")
 print(f"The winner is {min.upper()}{min}. Minified size is {results[min]}.") # Correct: Ff, 5094
 
 print("--- %s seconds ---" % (time.time() - start_time))
