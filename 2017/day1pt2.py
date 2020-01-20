@@ -37,14 +37,23 @@ def sumMatchingDigitsv2(listOfInts):
         # to calculate half the length of list: divide len of list by 2
         # then, subtract the length of the list
         # e.g. comparisons:
-        # index 0 1 2 3
-        # list [1,2,1,2]
-        #   0:2 (1, 1)
-        #   1:3 (2, 2)
-        #   2:0 (1, 1) (2+2-4=0)
-        #   3:1 (2, 2) (3+2-4=1)
-        if listOfInts[i] == listOfInts[i+len(listOfInts)//2-len(listOfInts)]: # if current digit matches digit halfway around in the circular list ...
-            winners.append(listOfInts[i])           # ... add to temp list
+            # index 0 1 2 3
+            # list [1,2,1,2]
+            #   0:2 (1, 1) (0+2%4=2) => 0<2
+            #   1:3 (2, 2) (1+2%4=3) => 1<2
+            #   2:0 (1, 1) (2+2-4=0) => 2!<2
+            #   3:1 (2, 2) (3+2-4=1) => 3!<2
+        length = len(listOfInts)
+        half = length//2
+        # if current digit matches digit halfway around in the circular list ...
+        # if listOfInts[i] == listOfInts[i+half-length]: # use subtraction
+        #     winners.append(listOfInts[i])              # ... add to temp list
+        if i < half:
+            if listOfInts[i] == listOfInts[i+half%length]: # use modulus
+                winners.append(listOfInts[i])              # ... add to temp list
+        else:
+            if listOfInts[i] == listOfInts[i+half-length]: # use subtraction
+                winners.append(listOfInts[i])              # ... add to temp list
     return sum(winners)
 
 # Unit tests
