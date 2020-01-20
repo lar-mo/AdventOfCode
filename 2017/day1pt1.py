@@ -27,35 +27,35 @@ What is the solution to your captcha?
 import time
 start_time = time.time()
 
-# Convert text file to list of strings
-with open('./day1_data.txt', 'r') as file:
-    lines = file.read()
-    lines = lines[:-1]
+# Open text file and convert string to list of integers
+with open('./day1_data.txt', 'r') as file:          # Open the file
+    lines = file.read()                             # Read the open file
+    lines = lines[:-1]                              # Remove the trailing \n
+puzzleInput = list(lines)                           # convert string to list of strings
+for i in range(0, len(puzzleInput)):                # loop through each item in list
+    puzzleInput[i] = int(puzzleInput[i])            # convert each item (str) to integer
 
-puzzleInput = list(lines)
-for i in range(0, len(puzzleInput)):
-    puzzleInput[i] = int(puzzleInput[i])
-
+# Function to compare adjacent items (integers)
 def sumMatchingDigits(listOfInts):
-    winners = []
-    for i in range(len(listOfInts)-1):
-        if listOfInts[i] == listOfInts[i+1]:
-            # print(f"mid match, {puzzleInput[i]} & {puzzleInput[i+1]}")
-            winners.append(listOfInts[i])
+    winners = []                                    # initialize temp list
+    for i in range(len(listOfInts)-1):              # loop through each list item
+        if listOfInts[i] == listOfInts[i+1]:        # if adjacent ints are the same, ...
+            winners.append(listOfInts[i])           # ... add to temp list
 
-    if listOfInts[-1] == listOfInts[0]:
-        # print(f"end match, {puzzleInput[-1]} & {puzzleInput[0]}")
-        winners.append(listOfInts[0])
+    if listOfInts[-1] == listOfInts[0]:             # standalone comparison: if first and last are the same, ...
+        winners.append(listOfInts[0])               # ... add to temp list
 
-    # print(winners)
-    return sum(winners)
+    return sum(winners)                             # return the sum of all item (ints) in list
 
-# print(f"{sumMatchingDigits([1,1,2,2])}") # 3
-# print(f"{sumMatchingDigits([1,1,1,1])}") # 4
-# print(f"{sumMatchingDigits([1,2,3,4])}") # 0
-# print(f"{sumMatchingDigits([9,1,2,1,2,1,2,9])}") # 9
-result = sumMatchingDigits(puzzleInput)
-if result == 1182: # correct answer is 1182
-    print(f"Pass! {result}")
+# Unit tests
+if sumMatchingDigits([1,1,2,2]) == 3: print("Pass!")         # expected result: 3 (unit test 1)
+if sumMatchingDigits([1,1,1,1]) == 4: print("Pass!")         # expected result: 4 (unit test 2)
+if sumMatchingDigits([1,2,3,4]) == 0 : print("Pass!")        # expected result: 0 (unit test 3)
+if sumMatchingDigits([9,1,2,1,2,1,2,9]) == 9: print("Pass!") # expected result: 9 (unit test 4)
 
-print("--- %s seconds ---" % (time.time() - start_time))
+# Solve the puzzle
+result = sumMatchingDigits(puzzleInput)             # call the function with actual puzzle input from day1_data.txt
+if result == 1182:                                  # if (correct) result is 1182
+    print(f"Pass! {result}")                        # print "Pass! and the result"
+
+print("--- %s seconds ---" % (time.time() - start_time)) # print the script execution time
