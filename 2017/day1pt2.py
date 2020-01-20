@@ -23,19 +23,28 @@ import time
 start_time = time.time()
 
 # Convert text file to list of strings
-with open('./day1_data.txt', 'r') as file:
-    lines = file.read()
-    lines = lines[:-1]
-
-puzzleInput = list(lines)
-for i in range(0, len(puzzleInput)):
-    puzzleInput[i] = int(puzzleInput[i])
+with open('./day1_data.txt', 'r') as file:          # Open the file
+    lines = file.read()                             # Read the data in the file
+    lines = lines[:-1]                              # Remove the trailing \n
+puzzleInput = list(lines)                           # convert string to list of strings
+for i in range(0, len(puzzleInput)):                # loop through each item in list
+    puzzleInput[i] = int(puzzleInput[i])            # convert each item (str) to integer
 
 def sumMatchingDigitsv2(listOfInts):
-    winners = []
-    for i in range(len(listOfInts)):
-        if listOfInts[i] == listOfInts[i+len(listOfInts)//2-len(listOfInts)]:
-            winners.append(listOfInts[i])
+    winners = []                                    # initialize temp list
+    for i in range(len(listOfInts)):                # loop through each list item
+        # compare current item (i) with digit that is half the length of list away
+        # to calculate half the length of list: divide len of list by 2
+        # then, subtract the length of the list
+        # e.g. comparisons:
+        # index 0 1 2 3
+        # list [1,2,1,2]
+        #   0:2 (1, 1)
+        #   1:3 (2, 2)
+        #   2:0 (1, 1) (2+2-4=0)
+        #   3:1 (2, 2) (3+2-4=1)
+        if listOfInts[i] == listOfInts[i+len(listOfInts)//2-len(listOfInts)]: # if current digit matches digit halfway around in the circular list ...
+            winners.append(listOfInts[i])           # ... add to temp list
     return sum(winners)
 
 # Unit tests
