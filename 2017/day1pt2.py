@@ -33,27 +33,39 @@ for i in range(0, len(puzzleInput)):                # loop through each item in 
 def sumMatchingDigitsv2(listOfInts):
     winners = []                                    # initialize temp list
     for i in range(len(listOfInts)):                # loop through each list item
-        # compare current item (i) with digit that is half the length of list away
-        # to calculate half the length of list: divide len of list by 2
-        # then, subtract the length of the list
-        # e.g. comparisons:
+        # variables for easier reading
+        length = len(listOfInts)            # length of list
+        half = length//2                    # half the length
+
+        # use modulus and subtraction to ensure indices are always positive integers
+        # comparisons (lines 48-55)
             # index 0 1 2 3
             # list [1,2,1,2]
             #   0:2 (1, 1) (0+2%4=2) => 0<2
             #   1:3 (2, 2) (1+2%4=3) => 1<2
             #   2:0 (1, 1) (2+2-4=0) => 2!<2
             #   3:1 (2, 2) (3+2-4=1) => 3!<2
-        length = len(listOfInts)
-        half = length//2
-        # if current digit matches digit halfway around in the circular list ...
-        # if listOfInts[i] == listOfInts[i+half-length]: # use subtraction
-        #     winners.append(listOfInts[i])              # ... add to temp list
         if i < half:
-            if listOfInts[i] == listOfInts[i+half%length]: # use modulus
+            # use modulus to find index of corresponding digit half way from circular list
+            if listOfInts[i] == listOfInts[i+half%length]: # if current digit matches corresponding digit ...
                 winners.append(listOfInts[i])              # ... add to temp list
         else:
-            if listOfInts[i] == listOfInts[i+half-length]: # use subtraction
+            # use subtraction to find index of corresponding digit half way from circular list
+            if listOfInts[i] == listOfInts[i+half-length]: # if current digit matches corresponding digit ...
                 winners.append(listOfInts[i])              # ... add to temp list
+
+        # use subtraction only; uses mix of positive and negative index numbers
+        # e.g. comparisons (lines 66-67)
+            # index 0 1 2 3
+            # list [1,2,1,2]
+            #   0:2 (1, 1) (0+2-4=-2)
+            #   1:3 (2, 2) (1+2-4=-1)
+            #   2:0 (1, 1) (2+2-4=0)
+            #   3:1 (2, 2) (3+2-4=1)
+        # use subtraction to find index of corresponding digit half way from circular list
+        # if listOfInts[i] == listOfInts[i+half-length]: # if current digit matches corresponding digit ...
+        #     winners.append(listOfInts[i])              # ... add to temp list
+
     return sum(winners)
 
 # Unit tests
