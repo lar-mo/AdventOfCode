@@ -1,3 +1,3 @@
 # AdventOfCode
 
-[https://lar-mo.github.io/AdventOfCode/|asf]
+https://lar-mo.github.io/AdventOfCode/
