@@ -62,6 +62,7 @@ else:                                               # otherwise, ...
     print(answer)                                   # ... just print the actual 'answer'
 
 test_data = [[5, 9, 2, 8], [9, 4, 7, 3], [3, 8, 6, 5]] # define test data
+# test_data = [[2, 5, 8, 9], [3, 4, 7, 9], [3, 5, 6, 8]] # define test data
 test_answer = evenlyDivided(test_data)              # call the function with test data
 if test_answer == 9:                                # if 'test_answer' matches expected result of 9, ...
     print(f"Pass! {test_answer}")                   # ... print Pass! and the actual 'test_answer'
