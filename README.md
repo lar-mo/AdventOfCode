@@ -1,3 +1,3 @@
 # AdventOfCode
 
-<a href="https://lar-mo.github.io/AdventOfCode/" target="_blank">https://lar-mo.github.io/AdventOfCode/</a>
+<a href="https://lar-mo.github.io/AdventOfCode/?foo" target="_aoc">https://lar-mo.github.io/AdventOfCode/</a>
