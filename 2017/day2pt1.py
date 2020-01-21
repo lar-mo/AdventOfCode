@@ -22,57 +22,45 @@ What is the checksum for the spreadsheet in your puzzle input?
 import time
 start_time = time.time()
 
+# Covert data into list of lists (one list per row)
 # Convert text file to list of strings
 with open('./day2_data.txt', 'r') as file:
     rows = file.read().split('\n')
     rows.pop(-1)
-# print(rows)
 
+# Convert lists of tab-delimited strings to lists of strings
 for i in range(len(rows)):
     rows[i] = rows[i].split('\t')
 
-puzzle_input = rows
-# print(f"Puzzle Input: {puzzle_input}")
+puzzle_input = rows                             # renamed variable for easier reading
 
+# Convert lists of strings to lists of integers
 for list in puzzle_input:
-    for i in range(0, len(list)):                # loop through each item in list
-        list[i] = int(list[i])                   # convert each item (str) to integer
+    for i in range(0, len(list)):               # loop through each item in list
+        list[i] = int(list[i])                  # convert each item (str) to integer
 
-# print(puzzle_input)
-
-# row = '121\t59\t141\t21\t120\t67\t58\t49\t22\t46\t56\t112\t53\t111\t104\t130'
-# print(row.split('\t'))
-
-# Covert data into list of lists (one list per row)
-# puzzle_input = [[5, 1, 9, 5], [7, 5, 3], [2, 4, 6, 8]]
-
+# (a) find lowest number, (b) find highest number, (c) subtract lowest from highest, (d) add result to temp list
 def findSpeadsheetChecksum(input):
-    # for each list:
-    ranges = []
-    for list in input:
-        # (a) find lowest number
-        minInt = min(list)
-        # print(minInt)
-        # (b) find highest number
-        maxInt = max(list)
-        # print(maxInt)
-        # (c) subtract lowest from highest
-        diff = maxInt-minInt
-        # print(diff)
-        # (d) add result to temp list
-        ranges.append(diff)
-    return sum(ranges)
+    # for each list of ints:
+    ranges = []                                 # initialize temp list
+    for list in input:                          # loop through each list of ints
+        minInt = min(list)                      # find lowest number
+        maxInt = max(list)                      # find highest number
+        diff = maxInt-minInt                    # find diff between highest and lowest
+        ranges.append(diff)                     # add result to temp list
+    return sum(ranges)                          # return the sum of all items in temp list
 
 # Result: Sum of all integers in temp list
-real = findSpeadsheetChecksum(puzzle_input) # correct answer: 32121
-if real == 32121:
-    print(f"Pass! {real}")
-else:
-    print(real)
-test = findSpeadsheetChecksum([[5, 1, 9, 5], [7, 5, 3], [2, 4, 6, 8]]) # 18
-if test == 18:
-    print(f"Pass! {test}")
-else:
-    print(test)
+real = findSpeadsheetChecksum(puzzle_input)     # call function with actual puzzle data
+if real == 32121:                               # if result matches correct answer: 32121
+    print(f"Pass! {real}")                      # print Pass! and the result
+else:                                           # otherwise,
+    print(real)                                 # print the incorrect result
 
-print("--- %s seconds ---" % (time.time() - start_time))
+test = findSpeadsheetChecksum([[5, 1, 9, 5], [7, 5, 3], [2, 4, 6, 8]]) # call function with test data
+if test == 18:                                  # if result matches correct answer: 18
+    print(f"Pass! {test}")                      # print Pass! and the result
+else:                                           # otherwise,
+    print(test)                                 # print the incorrect result
+
+print("--- %s seconds ---" % (time.time() - start_time)) # print the script execution time
