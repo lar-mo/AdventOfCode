@@ -35,13 +35,12 @@ for i in range(len(rows)):
 puzzle_input = rows                             # renamed variable for easier reading
 
 # Convert lists of strings to lists of integers
-for list in puzzle_input:
+for list in puzzle_input:                       # loop through each list in (big) list
     for i in range(0, len(list)):               # loop through each item in list
         list[i] = int(list[i])                  # convert each item (str) to integer
 
-# (a) find lowest number, (b) find highest number, (c) subtract lowest from highest, (d) add result to temp list
+# Calculate the checksum for spreadsheet
 def findSpeadsheetChecksum(input):
-    # for each list of ints:
     ranges = []                                 # initialize temp list
     for list in input:                          # loop through each list of ints
         minInt = min(list)                      # find lowest number
