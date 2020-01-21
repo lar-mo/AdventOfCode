@@ -42,41 +42,33 @@ for list in puzzle_input:
     for i in range(0, len(list)):               # loop through each item in list
         list[i] = int(list[i])                  # convert each item (str) to integer
 
-'''
-print(5*9) # 45 0*1
-print(5*2) # 10 0*2
-print(5*8) # 40 0*3
-print(9*2) # 18 1*2
-print(9*8) # 72 1*3
-print(2*8) # 16 2*3
-'''
-
-division_results = []
-
 def evenlyDivided(input):
-    winning_pair = []
-    input = sorted(input)
-    for num in input:
-        for i in range(len(input)-1):
-            if i < input.index(num):
-                remainder = num % input[i]
-                if remainder == 0:
-                    winning_pair = [num, input[i]]
+    division_results = []                       
+    for list in input:
+        winning_pair = []
+        list = sorted(list)
+        for num in list:
+            for i in range(len(list)-1):
+                if i < list.index(num):
+                    remainder = num % list[i]
+                    if remainder == 0:
+                        winning_pair = [num, list[i]]
 
-    result = winning_pair[0] // winning_pair[1]
-    division_results.append(result)
-    return division_results
+        result = winning_pair[0] // winning_pair[1]
+        division_results.append(result)
+    return sum(division_results)
 
-for list in puzzle_input:
-    answer = sum(evenlyDivided(list))
+answer = evenlyDivided(puzzle_input)
 if answer == 197:
     print(f"Pass! {answer}")
 else:
     print(answer)
 
-# test_data = [[5, 9, 2, 8], [9, 4, 7, 3], [3, 8, 6, 5]]
-# for test_list in test_data:
-#     test_answer = sum(evenlyDivided(test_list))
-# print(test_answer)
+test_data = [[5, 9, 2, 8], [9, 4, 7, 3], [3, 8, 6, 5]]
+test_answer = evenlyDivided(test_data)
+if test_answer == 9:
+    print(f"Pass! {test_answer}")
+else:
+    print(test_answer)
 
 print("--- %s seconds ---" % (time.time() - start_time)) # print the script execution time
