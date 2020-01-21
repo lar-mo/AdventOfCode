@@ -35,40 +35,37 @@ with open('./day2_data.txt', 'r') as file:
 for i in range(len(rows)):
     rows[i] = rows[i].split('\t')
 
-puzzle_input = rows                             # renamed variable for easier reading
+puzzle_input = rows                                 # renamed variable for easier reading
 
 # Convert lists of strings to lists of integers
-for list in puzzle_input:
-    for i in range(0, len(list)):               # loop through each item in list
-        list[i] = int(list[i])                  # convert each item (str) to integer
+for list in puzzle_input:                           # loop through each list in (big) list
+    for i in range(0, len(list)):                   # loop through each item in list
+        list[i] = int(list[i])                      # convert each item (str) to integer
 
 def evenlyDivided(input):
-    division_results = []                       
-    for list in input:
-        winning_pair = []
-        list = sorted(list)
-        for num in list:
-            for i in range(len(list)-1):
-                if i < list.index(num):
-                    remainder = num % list[i]
-                    if remainder == 0:
-                        winning_pair = [num, list[i]]
+    division_results = []                           # initialize temp variable
+    for list in input:                              # loop through each list in (big) list
+        list = sorted(list)                         # sort list highest to lowest
+        for num in list:                            # loop through each item in list
+            for i in range(len(list)-1):            # loop through each item again by index id
+                if list.index(num) > i:      # prevent inverse pairings by filtering against index of outer loop item
+                    remainder = num % list[i]       # calculate remainder between outer item with inner item
+                    if remainder == 0:              # (only) if reminder is 0 (i.e. "evenly divided")...
+                        result = num // list[i]     # ... perform floor division on evenly divided pair
+        division_results.append(result)             # add the result to temp list
+    return sum(division_results)                    # return the sum of all item in temp list
 
-        result = winning_pair[0] // winning_pair[1]
-        division_results.append(result)
-    return sum(division_results)
+answer = evenlyDivided(puzzle_input)                # call the function w/ puzzle input and save result to 'answer'
+if answer == 197:                                   # if 'answer' matches expected result of 197, ...
+    print(f"Pass! {answer}")                        # ... print Pass! and the actual 'answer'
+else:                                               # otherwise, ...
+    print(answer)                                   # ... just print the actual 'answer'
 
-answer = evenlyDivided(puzzle_input)
-if answer == 197:
-    print(f"Pass! {answer}")
-else:
-    print(answer)
-
-test_data = [[5, 9, 2, 8], [9, 4, 7, 3], [3, 8, 6, 5]]
-test_answer = evenlyDivided(test_data)
-if test_answer == 9:
-    print(f"Pass! {test_answer}")
-else:
-    print(test_answer)
+test_data = [[5, 9, 2, 8], [9, 4, 7, 3], [3, 8, 6, 5]] # define test data
+test_answer = evenlyDivided(test_data)              # call the function with test data
+if test_answer == 9:                                # if 'test_answer' matches expected result of 9, ...
+    print(f"Pass! {test_answer}")                   # ... print Pass! and the actual 'test_answer'
+else:                                               # otherwise, ...
+    print(test_answer)                              # ... just print the actual 'test_answer'
 
 print("--- %s seconds ---" % (time.time() - start_time)) # print the script execution time
