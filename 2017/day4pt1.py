@@ -30,25 +30,25 @@ for i in range(len(lines)):
 test_input = [['aa', 'bb', 'cc', 'dd', 'ee'],['aa', 'bb', 'cc', 'dd', 'aa'],['aa', 'bb', 'cc', 'dd', 'aaa']]
 
 def countOccurrences(data):
-    validCount = 0
-    for list in data:
-        itemCount = 0
-        for item in list:
-            itemCount += list.count(item)
-        if itemCount == len(list):
-            validCount += 1
-    return validCount
+    validCount = 0                                  # initialize temp counter variable (valid passphrases)
+    for list in data:                               # loop through each list in data (list of lists)
+        itemCount = 0                               # initialize temp counter variable (num of occurrences)
+        for item in list:                           # loop through the item in the (current) list
+            itemCount += list.count(item)           # keep a running total of num of occurrences for each set (list)
+        if itemCount == len(list):                  # if the itemCount matches the length of list (i.e. 1:1)
+            validCount += 1                         # mark the list is a valid passphrase (increment counter)
+    return validCount                               # when loops are completed, return count of valid passphrases
 
-puzzle_result = countOccurrences(lines)
-if puzzle_result == 451:
-    print(f"Pass! {puzzle_result}")
-else:
-    print(puzzle_result)
+puzzle_result = countOccurrences(lines)             # call the function with actual puzzle data
+if puzzle_result == 451:                            # if actual result matches expected result, ...
+    print(f"Pass! {puzzle_result}")                 # ... print "Pass!" and the actual result
+else:                                               # otherwise, ...
+    print(puzzle_result)                            # ... print the actual (incorrect) result
 
-test_result = countOccurrences(test_input)
-if test_result == 2:
-    print(f"Pass! {test_result}")
-else:
-    print(test_result)
+test_result = countOccurrences(test_input)          # call the function with test data
+if test_result == 2:                                # if actual result matches expected result, ...
+    print(f"Pass! {test_result}")                   # ... print "Pass!" and the actual result
+else:                                               # otherwise, ...
+    print(test_result)                              # ... print the actual (incorrect) result
 
 print("--- %s seconds ---" % (time.time() - start_time)) # print the script execution time
