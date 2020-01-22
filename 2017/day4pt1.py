@@ -27,7 +27,7 @@ with open('./day4_data.txt', 'r') as file:
 for i in range(len(lines)):
     lines[i] = lines[i].split(' ')
 
-test_input = [['aa', 'bb', 'cc', 'dd', 'ee'],['aa', 'bb', 'cc', 'dd', 'aa'],['aa', 'bb', 'cc', 'dd', 'aaa']]
+test_input = [['aa', 'bb', 'cc', 'dd', 'ee'],['aa', 'bb', 'cc', 'dd', 'aa'],['aa', 'bb', 'cc', 'dd', 'aaa', 'ee', 'ff']]
 
 def countOccurrences(data):
     validCount = 0                                  # initialize temp counter variable (valid passphrases)
