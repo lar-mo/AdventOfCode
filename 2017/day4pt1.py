@@ -23,7 +23,7 @@ with open('./day4_data.txt', 'r') as file:
     lines = file.read().split('\n')
     lines.pop(-1)
 
-# Convert lists of tab-delimited strings to lists of strings
+# Convert lists of space-delimited strings to lists of strings
 for i in range(len(lines)):
     lines[i] = lines[i].split(' ')
 
