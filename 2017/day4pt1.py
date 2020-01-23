@@ -39,16 +39,18 @@ def countOccurrences(data):
             validCount += 1                         # mark the list is a valid passphrase (increment counter)
     return validCount                               # when loops are completed, return count of valid passphrases
 
-puzzle_result = countOccurrences(lines)             # call the function with actual puzzle data
-if puzzle_result == 451:                            # if actual result matches expected result, ...
-    print(f"Pass! {puzzle_result}")                 # ... print "Pass!" and the actual result
-else:                                               # otherwise, ...
-    print(puzzle_result)                            # ... print the actual (incorrect) result
+if __name__ == '__main__':                          # if script run locally
 
-test_result = countOccurrences(test_input)          # call the function with test data
-if test_result == 2:                                # if actual result matches expected result, ...
-    print(f"Pass! {test_result}")                   # ... print "Pass!" and the actual result
-else:                                               # otherwise, ...
-    print(test_result)                              # ... print the actual (incorrect) result
+    puzzle_result = countOccurrences(lines)         # call the function with actual puzzle data
+    if puzzle_result == 451:                        # if actual result matches expected result, ...
+        print(f"Pass! {puzzle_result}")             # ... print "Pass!" and the actual result
+    else:                                           # otherwise, ...
+        print(puzzle_result)                        # ... print the actual (incorrect) result
 
-print("--- %s seconds ---" % (time.time() - start_time)) # print the script execution time
+    test_result = countOccurrences(test_input)      # call the function with test data
+    if test_result == 2:                            # if actual result matches expected result, ...
+        print(f"Pass! {test_result}")               # ... print "Pass!" and the actual result
+    else:                                           # otherwise, ...
+        print(test_result)                          # ... print the actual (incorrect) result
+
+    print("--- %s seconds ---" % (time.time() - start_time)) # print the script execution time
