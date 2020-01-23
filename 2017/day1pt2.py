@@ -45,26 +45,28 @@ def sumMatchingDigitsv2(listOfInts):
             #   1:3 (2, 2) (1+2%4=3) => 1<2
             #   2:0 (1, 1) (2+2-4=0) => 2!<2
             #   3:1 (2, 2) (3+2-4=1) => 3!<2
-        if i < half:
-            # use modulus to find index of corresponding digit half way from circular list
-            if listOfInts[i] == listOfInts[i+half%length]: # if current digit matches corresponding digit ...
-                winners.append(listOfInts[i])              # ... add to temp list
-        else:
-            # use subtraction to find index of corresponding digit half way from circular list
-            if listOfInts[i] == listOfInts[i+half-length]: # if current digit matches corresponding digit ...
-                winners.append(listOfInts[i])              # ... add to temp list
+        # if i < half:
+        #     # use modulus to find index of corresponding digit half way from circular list
+        #     if listOfInts[i] == listOfInts[i+half%length]: # if current digit matches corresponding digit ...
+        #         winners.append(listOfInts[i])              # ... add to temp list
+        # else:
+        #     # use subtraction to find index of corresponding digit half way from circular list
+        #     if listOfInts[i] == listOfInts[i+half-length]: # if current digit matches corresponding digit ...
+        #         winners.append(listOfInts[i])              # ... add to temp list
 
-        # use subtraction only; uses mix of positive and negative index numbers
-        # e.g. comparisons (lines 66-67)
-            # index 0 1 2 3
-            # list [1,2,1,2]
-            #   0:2 (1, 1) (0+2-4=-2)
-            #   1:3 (2, 2) (1+2-4=-1)
-            #   2:0 (1, 1) (2+2-4=0)
-            #   3:1 (2, 2) (3+2-4=1)
+        '''
+        use subtraction only; uses mix of positive and negative index numbers
+        e.g. comparisons (lines 66-67)
+            index 0 1 2 3
+            list [1,2,1,2]
+              0:2 (1, 1) (0+2-4=-2)
+              1:3 (2, 2) (1+2-4=-1)
+              2:0 (1, 1) (2+2-4=0)
+              3:1 (2, 2) (3+2-4=1)
+        '''
         # use subtraction to find index of corresponding digit half way from circular list
-        # if listOfInts[i] == listOfInts[i+half-length]: # if current digit matches corresponding digit ...
-        #     winners.append(listOfInts[i])              # ... add to temp list
+        if listOfInts[i] == listOfInts[i+half-length]: # if current digit matches corresponding digit ...
+            winners.append(listOfInts[i])              # ... add to temp list
 
     return sum(winners)
 
