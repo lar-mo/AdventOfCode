@@ -30,20 +30,30 @@ with open('./day4_data.txt', 'r') as file:
 for i in range(len(lines)):
     lines[i] = lines[i].split(' ')
 
+# Test data
 test_data = [['abcde', 'xyz', 'ecdab'],['abcde', 'fghij'],['a', 'ab', 'abc', 'abd', 'abf', 'abj'], ['iiii', 'oiii', 'ooii', 'oooi', 'oooo'], ['oiii', 'ioii', 'iioi', 'iiio']]
 
 def countSortedPassphrases(data):
-    for passphrase in data:
-        for i in range(len(passphrase)):
-            # passphrase[i] = list(passphrase[i])                   # convert each string to a list of items
-            # passphrase[i] = sorted(passphrase[i])                 # sort list of items alphabetically
-            # passphrase[i] = ''.join(passphrase[i])                # convert list of items back to string
-            passphrase[i] = ''.join(sorted(list(passphrase[i])))    # do all three operations in one line of code
+    for passphrase in data:                                      # loop through each passphrase (list) in test input
+        for i in range(len(passphrase)):                         # loop through each item in the list (passphrase)
+            # passphrase[i] = list(passphrase[i])                # convert each string to a list of items
+            # passphrase[i] = sorted(passphrase[i])              # sort list of items alphabetically
+            # passphrase[i] = ''.join(passphrase[i])             # convert list of items back to string
+            passphrase[i] = ''.join(sorted(list(passphrase[i]))) # do all three operations in one line of code
     return countOccurrences(data)
 
-if __name__ == '__main__':                                          # if script run locally
+if __name__ == '__main__':                            # if script run locally
 
-    print(countSortedPassphrases(test_data))                        # 3 valid passphrases
-    print(countSortedPassphrases(lines))                            # 223 valid passphrases
+    puzzle_result = countSortedPassphrases(lines)     # call the function with actual puzzle data
+    if puzzle_result == 223:                          # if actual result matches expected result, ...
+        print(f"Pass! {puzzle_result}")               # ... print "Pass!" and the actual result
+    else:                                             # otherwise, ...
+        print(puzzle_result)                          # ... print the actual (incorrect) result
+
+    puzzle_result = countSortedPassphrases(test_data) # call the function with actual puzzle data
+    if puzzle_result == 3:                            # if actual result matches expected result, ...
+        print(f"Pass! {puzzle_result}")               # ... print "Pass!" and the actual result
+    else:                                             # otherwise, ...
+        print(puzzle_result)                          # ... print the actual (incorrect) result
 
     print("--- %s seconds ---" % (time.time() - start_time)) # print the script execution time
