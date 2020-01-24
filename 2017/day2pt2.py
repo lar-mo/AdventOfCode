@@ -48,7 +48,7 @@ def evenlyDivided(input):                       # divide each number with every 
         list = sorted(list)                     # sort list highest to lowest
         for num in list:                        # loop through each item in list
             for i in range(len(list)-1):        # loop through each item again by index id
-                if list.index(num) > i:         # prevent inverse pairings by filtering against outer loop item id
+                if i < list.index(num):         # prevent inverse pairings by filtering against outer loop item id
                     remainder = num % list[i]   # calculate remainder between outer item with inner item
                     if remainder == 0:          # (only) if reminder is 0 (i.e. "evenly divided")...
                         result = num // list[i] # ... perform floor division on evenly divided pair
