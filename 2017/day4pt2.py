@@ -39,7 +39,7 @@ def countSortedPassphrases(data):
             # passphrase[i] = list(passphrase[i])               # convert each string to a list of items (*unnecess.)
             # passphrase[i] = sorted(passphrase[i])             # sort list items alphabetically
             # passphrase[i] = ''.join(passphrase[i])            # convert list of items back to string
-            passphrase[i] = ''.join(sorted(passphrase[i]))      # do all three operations in one line of code
+            passphrase[i] = ''.join(sorted(passphrase[i]))      # do both operations in one line of code
     return countOccurrences(data)
 
 if __name__ == '__main__':                            # if script run locally
