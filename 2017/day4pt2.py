@@ -34,12 +34,12 @@ for i in range(len(lines)):
 test_data = [['abcde', 'xyz', 'ecdab'],['abcde', 'fghij'],['a', 'ab', 'abc', 'abd', 'abf', 'abj'], ['iiii', 'oiii', 'ooii', 'oooi', 'oooo'], ['oiii', 'ioii', 'iioi', 'iiio']]
 
 def countSortedPassphrases(data):
-    for passphrase in data:                                      # loop through each passphrase (list) in test input
-        for i in range(len(passphrase)):                         # loop through each item in the list (passphrase)
-            # passphrase[i] = list(passphrase[i])                # convert each string to a list of items
-            # passphrase[i] = sorted(passphrase[i])              # sort list items alphabetically
-            # passphrase[i] = ''.join(passphrase[i])             # convert list of items back to string
-            passphrase[i] = ''.join(sorted(list(passphrase[i]))) # do all three operations in one line of code
+    for passphrase in data:                                     # loop through each passphrase (list) in test input
+        for i in range(len(passphrase)):                        # loop through each item in the list (passphrase)
+            # passphrase[i] = list(passphrase[i])               # convert each string to a list of items (*unnecess.)
+            # passphrase[i] = sorted(passphrase[i])             # sort list items alphabetically
+            # passphrase[i] = ''.join(passphrase[i])            # convert list of items back to string
+            passphrase[i] = ''.join(sorted(passphrase[i]))      # do all three operations in one line of code
     return countOccurrences(data)
 
 if __name__ == '__main__':                            # if script run locally
