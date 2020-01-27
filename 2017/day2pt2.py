@@ -39,7 +39,7 @@ puzzle_input = rows                             # renamed variable for easier re
 
 # Convert lists of strings to lists of integers
 for list in puzzle_input:                       # loop through each list in (big) list
-    for i in range(0, len(list)):               # loop through each item in list
+    for i in range(len(list)):                  # loop through each item in list
         list[i] = int(list[i])                  # convert each item (str) to integer
 
 def evenlyDivided(input):                       # divide each number with every other number in list (puzzle_input)
