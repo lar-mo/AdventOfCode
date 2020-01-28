@@ -32,11 +32,10 @@ for i in range(0, len(puzzleInput)):                # loop through each item in 
 
 def sumMatchingDigitsv2(listOfInts):
     winners = []                                    # initialize temp list
+    # variables for easier reading
+    length = len(listOfInts)                        # length of list
+    half = length // 2                              # half the length
     for i in range(len(listOfInts)):                # loop through each list item
-        # variables for easier reading
-        length = len(listOfInts)            # length of list
-        half = length // 2                    # half the length
-
         # use modulus and subtraction to ensure indices are always positive integers
         # comparisons (lines 48-55)
             # index 0 1 2 3
