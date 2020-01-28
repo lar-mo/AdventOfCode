@@ -59,12 +59,12 @@ def redistMemory(data):                             # define function
     return data                                     # return newly transformed list
 
 ### track transformed lists and look for duplicates ###
-def loopThroughVariants(data):                      # define function
-    configurations = [data]                         # initialize temp list, seed with input data
+def loopThroughVariants(input):                     # define function
+    configurations = ['foo']                        # initialize temp list, seed with input data
     while True:                                     # initialize continuous loop
-        data = redistMemory(data)                   # set the return data as input for function call on next cycle
-        for i in range(len(data)):                  # loop through each integer in list
-            string = "".join(str(i) for i in data)  # convert int to string and concatenate
+        data = redistMemory(input)                  # set the return data as input for function call on next cycle
+        for i in range(len(input)):                 # loop through each integer in list
+            string = "".join(str(i) for i in input) # convert int to string and concatenate
         if string not in configurations:            # if the string is not in temp list ...
             configurations.append(string)           # ... add it to the temp list
         else:                                       # otherwise, ...
