@@ -36,11 +36,11 @@ start_time = time.time()
 # Covert data into list of lists (one list per row)
 # Convert text file to list of strings
 with open('./day6_data.txt', 'r') as file:
-    rows = file.read().strip().split('\t')      # strip \n first, then split on tabs (\t)
+    rows = file.read().strip().split('\t')          # strip \n first, then split on tabs (\t)
 
-puzzleInput = rows                             # renamed variable for easier reading
-for i in range(0, len(puzzleInput)):           # loop through each item in list
-    puzzleInput[i] = int(puzzleInput[i])       # convert each item (str) to integer
+puzzleInput = rows                                  # renamed variable for easier reading
+for i in range(0, len(puzzleInput)):                # loop through each item in list
+    puzzleInput[i] = int(puzzleInput[i])            # convert each item (str) to integer
 
 test_data = [0, 2, 7, 0]
 
