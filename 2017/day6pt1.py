@@ -39,43 +39,46 @@ with open('./day6_data.txt', 'r') as file:
     rows = file.read().strip().split('\t')      # strip \n first, then split on tabs (\t)
 
 puzzleInput = rows                             # renamed variable for easier reading
-for i in range(0, len(puzzleInput)):                # loop through each item in list
-    puzzleInput[i] = int(puzzleInput[i])            # convert each item (str) to integer
-# print(puzzleInput)
+for i in range(0, len(puzzleInput)):           # loop through each item in list
+    puzzleInput[i] = int(puzzleInput[i])       # convert each item (str) to integer
 
 test_data = [0, 2, 7, 0]
-# print(test_data)
 
-def redistMemory(data1):
-    maxItem = max(data1)
-    id = data1.index(maxItem)
-    length = len(data1)
-    data1[id] = 0
-    while maxItem > 0:
-        for i in range(len(data1)):
-            data1[id+i+1-length] += 1
-            maxItem -= 1
-            if maxItem == 0:
-                break
-    return data1
+### transform a list ###
+def redistMemory(data):                             # define function
+    maxItem = max(data)                             # variable for the largest integer in list (to be redistributed)
+    id = data.index(maxItem)                        # variable for the index of largest int
+    length = len(data)                              # variable for length of list
+    data[id] = 0                                    # Step 1: removes all of the blocks from the selected bank
+    while maxItem > 0:                              # use largest integer as basis for loop
+        for i in range(len(data)):                  # Step 2: then moves to the next (by index) memory bank ...
+            data[id+i+1-length] += 1                # ... and inserts one of the blocks
+            maxItem -= 1                            # ... (and remove one from maxItem - largest int)
+            if maxItem == 0:                        # if maxItem reduced to 0, ...
+                break                               # ... break out of for + while loops
+    return data                                     # return newly transformed list
 
-def loopThroughVariants(data):
-    configurations = []
-    while True:
-        data = redistMemory(data)
-        for i in range(len(data)):
-            b = "".join(str(i) for i in data)
-        if b not in configurations:
-            configurations.append(b)
-        else:
-            break
-    # print(configurations)
-    return len(configurations) + 1
+### track transformed lists and look for duplicates ###
+def loopThroughVariants(data):                      # define function
+    configurations = [data]                         # initialize temp list, seed with input data
+    while True:                                     # initialize continuous loop
+        data = redistMemory(data)                   # set the return data as input for function call on next cycle
+        for i in range(len(data)):                  # loop through each integer in list
+            string = "".join(str(i) for i in data)  # convert int to string and concatenate
+        if string not in configurations:            # if the string is not in temp list ...
+            configurations.append(string)           # ... add it to the temp list
+        else:                                       # otherwise, ...
+            break                                   # ... break out of for + while loops
+    return len(configurations)                      # return length of temp list (# of redist cycles)
 
-print(loopThroughVariants(test_data)) # 5
+if __name__ == '__main__':                          # if script run locally
 
-print(loopThroughVariants(puzzleInput)) # 7864
+    test_answer = loopThroughVariants(test_data)    # store result in temp variable
+    if test_answer == 5:                            # if actual answer matches expected answer ...
+        print(f"Pass! {test_answer}")               # ... print "Pass!" and test_answer
 
-if __name__ == '__main__':                                   # if script run locally
+    puzzle_answer = loopThroughVariants(puzzleInput)# store result in temp variable
+    if puzzle_answer == 7864:                       # if actual answer matches expected answer ...
+        print(f"Pass! {puzzle_answer}")             # ... print "Pass!" and puzzle_answer
 
     print("--- %s seconds ---" % (time.time() - start_time)) # print the script execution time
