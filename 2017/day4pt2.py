@@ -37,7 +37,7 @@ def countSortedPassphrases(data):
     for passphrase in data:                                 # loop through each passphrase (list) in test input
         for i in range(len(passphrase)):                    # loop through each item in the list (passphrase)
             # passphrase[i] = list(passphrase[i])           # convert each string to a list of items (*unnecessary*)
-            # passphrase[i] = sorted(passphrase[i])         # sort list items alphabetically
+            # passphrase[i] = sorted(passphrase[i])         # string-to-list conversion; sorts list alphabetically
             # passphrase[i] = ''.join(passphrase[i])        # convert list of items back to string
             passphrase[i] = ''.join(sorted(passphrase[i]))  # do both operations in one line of code
     return countOccurrences(data)
