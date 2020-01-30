@@ -10,6 +10,7 @@ In the example above, 2 4 1 2 is seen again after four cycles, and so the answer
 
 How many cycles are in the infinite loop that arises from the configuration in your puzzle input?
 '''
+from day6pt1 import redistMemory
 import time
 start_time = time.time()
 
@@ -24,20 +25,6 @@ for i in range(0, len(puzzleInput)):                # loop through each item in 
 
 test_data = [0, 2, 7, 0]
 
-### transform a list ###
-def redistMemory(data):                             # define function
-    maxItem = max(data)                             # variable for the largest integer in list (to be redistributed)
-    id = data.index(maxItem)                        # variable for the index of largest int
-    length = len(data)                              # variable for length of list
-    data[id] = 0                                    # Step 1: removes all of the blocks from the selected bank
-    while maxItem > 0:                              # use largest integer as basis for loop
-        for i in range(len(data)):                  # Step 2: then moves to the next (by index) memory bank ...
-            data[id+i+1-length] += 1                # ... and inserts one of the blocks
-            maxItem -= 1                            # ... (and remove one from maxItem - largest int)
-            if maxItem == 0:                        # if maxItem reduced to 0, ...
-                break                               # ... break out of for + while loops
-    return data                                     # return newly transformed list
-
 ### track transformed lists and look for duplicates ###
 def loopThroughVariants(input):                     # define function
     configurations = []                             # initialize temp list for redist result for each cycle
@@ -49,7 +36,7 @@ def loopThroughVariants(input):                     # define function
         configurations.append(string)               # ... add it to the temp list
         if configurations.count(string) == 2:       # if the variant repeats the first time (count=2), ...
             lengths.append(len(configurations))     # ... add length of list (cycles)
-        if configurations.count(string) == 3:       # if the variant repeasts the second time (count=3), ...
+        if configurations.count(string) == 3:       # if the variant repeats for the second time (count=3), ...
             lengths.append(len(configurations))     # ... add length of list (cycles) ...
             break                                   # ... then, break out of while loop
     return lengths[-1] - lengths[0]                 # return result of last item minus first item from lengths list
