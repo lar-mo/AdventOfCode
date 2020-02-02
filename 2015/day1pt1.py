@@ -31,19 +31,32 @@ start_time = time.time()
 with open('./day1_data.txt', 'r') as file:          # Open the file
     lines = file.read()                             # Read the open file
     lines = lines[:-1]                              # Remove the trailing \n
-    lines = list(lines)
+    lines = list(lines)                             # Convert string to list
 
-# print(lines)
+# (()) = 0 ; ()() = 0 ; ((( = 3 ; (()(()( = 3 ; ))((((( = 3 ; ()) = -1 ; ))( = -1 ; ))) = -3 ; )())()) = -3
+test_data = list('(((')
 
-floor = 0
-for p in lines:
-    if p == '(':
-        floor += 1
-    else:
-        floor -= 1
-
-print(floor)
+def whichFloor(data):                               # define function
+    floor = 0                                       # initialize counter (ground floor)
+    for p in data:                                  # loop through each item in the list
+        if p == '(':                                # if item is open parentheses, ...
+            floor += 1                              # ... then increment counter by 1
+        else:                                       # else, ...
+            floor -= 1                              # ... then decrement counter by 1
+    return floor                                    # return final result (counter)
 
 if __name__ == '__main__':                          # if script run locally
+
+    puzzle_answer = whichFloor(lines)               # call the function with puzzle data
+    if puzzle_answer == 74:                         # if the actual result matches the expected result ...
+        print(f"Pass! {puzzle_answer}")             # ... print Pass! and the actual result
+    else:                                           # else, ...
+        print(puzzle_answer)                        # ... print the actual (incorrect) result
+
+    test_answer = whichFloor(test_data)             # call the function with test data
+    if test_answer == 3:                            # if the actual result matches the expected result ...
+        print(f"Pass! {test_answer}")               # ... print Pass! and the actual result
+    else:                                           # else, ...
+        print(test_answer)                          # ... print the actual (incorrect) result
 
     print("--- %s seconds ---" % (time.time() - start_time)) # print the script execution time
