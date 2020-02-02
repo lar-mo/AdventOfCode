@@ -40,10 +40,10 @@ def whichFloor(data):                               # define function
     floor = 0                                       # initialize counter (ground floor)
     for p in data:                                  # loop through each item in the list
         if p == '(':                                # if item is open parentheses, ...
-            floor += 1                              # ... then increment counter by 1
+            floor += 1                              # ... then increment floor by 1
         else:                                       # else, ...
-            floor -= 1                              # ... then decrement counter by 1
-    return floor                                    # return final result (counter)
+            floor -= 1                              # ... then decrement floor by 1
+    return floor                                    # return final result (floor)
 
 if __name__ == '__main__':                          # if script run locally
 
