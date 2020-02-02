@@ -29,11 +29,9 @@ for item in lines:                                  # loop through each set (ite
         item[i] = int(item[i])                      # convert string to int (in order to do math)
 
 puzzle_input = lines                                # rename puzzle data for easier reading
-
 test_data = [[1,1,10], [2,3,4]]                     # test data
 
 def calculateArea(data):
-
     all_packages = []                               # initialize temp list
     for set in data:                                # loop through each set in function input (data)
         l, w, h = set[0], set[1], set[2]            # define the l, w, h variables for easier reading
@@ -49,12 +47,12 @@ if __name__ == '__main__':                          # if script run locally
     if test_answer == 101:                          # if actual result matches expected result, ...
         print(f"Pass! {test_answer}")               # ... print Pass! and actual result
     else:                                           # else, ...
-        print(test_answer)                          # ... print actual (incorrect) result
+        print(f"Fail: {test_answer}")               # ... print Fail: and actual (incorrect) result
 
     puzzle_answer = calculateArea(puzzle_input)     # call calculateArea function with puzzle_input
     if puzzle_answer == 1598415:                    # if actual result matches expected result, ...
         print(f"Pass! {puzzle_answer}")             # ... print Pass! and actual result
     else:                                           # else, ...
-        print(puzzle_answer)                        # ... print actual (incorrect) result
+        print(f"Fail: {puzzle_answer}")             # ... print Fail: and actual (incorrect) result
 
     print("--- %s seconds ---" % (time.time() - start_time)) # print the script execution time
