@@ -21,54 +21,40 @@ with open('./day2_data.txt', 'r') as file:          # Open the file
     lines = lines[:-1]                              # Remove the trailing \n
     lines = list(lines)                             # Convert string to list
 
-for i in range(len(lines)):
-    lines[i] = lines[i].split('x')
+for i in range(len(lines)):                         # loop through each set in list
+    lines[i] = lines[i].split('x')                  # split on the 'x' e.g. 1x1x10
 
-for item in lines:
-    for i in range(len(item)):
-        item[i] = int(item[i])
+for item in lines:                                  # loop through each set (item) in list
+    for i in range(len(item)):                      # loop through each item in set (item)
+        item[i] = int(item[i])                      # convert string to int (in order to do math)
 
-# print(lines)
-puzzle_input = lines
+puzzle_input = lines                                # rename puzzle data for easier reading
 
-test_data = [[1,1,10], [2,3,4]]
-# test_data = [[2,3,4]]
+test_data = [[1,1,10], [2,3,4]]                     # test data
 
 def calculateArea(data):
 
-    all_packages = []
-    for set in data:
-        # l=2, w=3, h=4
-        l = set[0]
-        w = set[1]
-        h = set[2]
-        # 2*l*w + 2*w*h + 2*h*l
-        base_area = 2*l*w + 2*w*h + 2*h*l
-
-        find_smallest_side = []
-        find_smallest_side.append(l*w)
-        find_smallest_side.append(w*h)
-        find_smallest_side.append(h*l)
-        extra = min(find_smallest_side)
-
-        all_packages.append(base_area + extra)
-
-    sum_of_all_packages = sum(all_packages)
-
-    return sum_of_all_packages
+    all_packages = []                               # initialize temp list
+    for set in data:                                # loop through each set in function input (data)
+        l, w, h = set[0], set[1], set[2]            # define the l, w, h variables for easier reading
+        base_area = 2*l*w + 2*w*h + 2*h*l           # calculate base area for each set from list
+        extra = min([l*w, w*h, h*l])                # calculate smallest side using min(list) method
+        all_packages.append(base_area + extra)      # add sum of base_area and extra to temp list (all_packages)
+    sum_of_all_packages = sum(all_packages)         # calculate sum of all items in all_packages
+    return sum_of_all_packages                      # return total (sum)
 
 if __name__ == '__main__':                          # if script run locally
 
-    test_answer = calculateArea(test_data)
-    if test_answer == 101:
-        print(f"Pass! {test_answer}")
-    else:
-        print(test_answer)
+    test_answer = calculateArea(test_data)          # call calculateArea function with test_data
+    if test_answer == 101:                          # if actual result matches expected result, ...
+        print(f"Pass! {test_answer}")               # ... print Pass! and actual result
+    else:                                           # else, ...
+        print(test_answer)                          # ... print actual (incorrect) result
 
-    puzzle_answer = calculateArea(puzzle_input)
-    if puzzle_answer == 1598415:
-        print(f"Pass! {puzzle_answer}")
-    else:
-        print(puzzle_answer)
+    puzzle_answer = calculateArea(puzzle_input)     # call calculateArea function with puzzle_input
+    if puzzle_answer == 1598415:                    # if actual result matches expected result, ...
+        print(f"Pass! {puzzle_answer}")             # ... print Pass! and actual result
+    else:                                           # else, ...
+        print(puzzle_answer)                        # ... print actual (incorrect) result
 
     print("--- %s seconds ---" % (time.time() - start_time)) # print the script execution time
