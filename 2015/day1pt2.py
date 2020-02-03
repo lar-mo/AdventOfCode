@@ -21,19 +21,20 @@ with open('./day1_data.txt', 'r') as file:          # Open the file
     lines = lines[:-1]                              # Remove the trailing \n
     lines = list(lines)                             # Convert string to list
 
-test_data = list('()())')                           # answer is 5
+test_data1 = list('()())')                          # answer is 5
+test_data2 = list(')')                              # answer is 1
 
 def whichFloor(data):                               # define function
-    counter = 1                                     # initialize counter, starting at 1 due to break on line 35
+    counter = 0                                     # initialize counter, starting at 1 due to break on line 35
     floor = 0                                       # initialize floor (0 = ground floor)
     for p in data:                                  # loop through each item in the list
+        counter += 1                                # increment counter by 1
         if p == '(':                                # if item is open parentheses, ...
             floor += 1                              # ... then increment floor by 1
         else:                                       # else, ...
             floor -= 1                              # ... then decrement floor by 1
             if floor == -1:                         # if floor reaches -1 (basement), ...
                 break                               # ... break out of for loop
-        counter += 1                                # ... and increment counter by 1
     return counter                                  # return counter
 
 if __name__ == '__main__':                          # if script run locally
@@ -44,8 +45,14 @@ if __name__ == '__main__':                          # if script run locally
     else:                                           # else, ...
         print(puzzle_answer)                        # ... print the actual (incorrect) result
 
-    test_answer = whichFloor(test_data)             # call the function with test data
+    test_answer = whichFloor(test_data1)            # call the function with test data
     if test_answer == 5:                            # if the actual result matches the expected result ...
+        print(f"Pass! {test_answer}")               # ... print Pass! and the actual result
+    else:                                           # else, ...
+        print(test_answer)                          # ... print the actual (incorrect) result
+
+    test_answer = whichFloor(test_data2)            # call the function with test data
+    if test_answer == 1:                            # if the actual result matches the expected result ...
         print(f"Pass! {test_answer}")               # ... print Pass! and the actual result
     else:                                           # else, ...
         print(test_answer)                          # ... print the actual (incorrect) result
