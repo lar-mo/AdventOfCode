@@ -24,7 +24,7 @@ with open('./day1_data.txt', 'r') as file:          # Open the file
 test_data = list('()())')                           # answer is 5; other input: ')', answer is 0
 
 def whichFloor(data):                               # define function
-    counter = 1                                     # initialize counter, starting at 1 for offset
+    counter = 1                                     # initialize counter, starting at 1 due to break on line 35
     floor = 0                                       # initialize floor (0 = ground floor)
     for p in data:                                  # loop through each item in the list
         if p == '(':                                # if item is open parentheses, ...
