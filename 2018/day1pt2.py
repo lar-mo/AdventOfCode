@@ -25,7 +25,6 @@ Here are other examples:
 +7, +7, -2, -7, -4 first reaches 14 twice.
 What is the first frequency your device reaches twice?
 '''
-
 import time
 start_time = time.time()
 
@@ -35,12 +34,12 @@ with open('./day1_data.txt', 'r') as file:
     lines.pop(-1)
 
 # convert input (freq variations) to integers
-puzzle_input = []
-for value in lines:
-    if value[0] == "+":
-        puzzle_input.append(int(value[1:]))
-    else:
-        puzzle_input.append(int(value))
+puzzle_input = []                               # initialize temp list
+for value in lines:                             # loop through all items in list
+    if value[0] == "+":                         # if string starts w/ plus sign, ...
+        puzzle_input.append(int(value[1:]))     # ... strip it and convert to int
+    else:                                       # otherwise, (if string starts w/ minus sign)...
+        puzzle_input.append(int(value))         # ... convert to int
 
 ### this is TOTALLY INEFFICIENT *** takes ~150-170 secs
 # start a running total using same input until a duplicate freq is found
