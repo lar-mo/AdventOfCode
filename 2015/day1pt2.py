@@ -34,7 +34,7 @@ def whichFloor(data):                               # define function
             if floor == -1:                         # if floor reaches -1 (basement), ...
                 break                               # ... break out of for loop
         counter += 1                                # ... and increment counter by 1
-    return counter                                  # return counter plus one (to account fo)
+    return counter                                  # return counter
 
 if __name__ == '__main__':                          # if script run locally
 
