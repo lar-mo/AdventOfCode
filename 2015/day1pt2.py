@@ -21,7 +21,7 @@ with open('./day1_data.txt', 'r') as file:          # Open the file
     lines = lines[:-1]                              # Remove the trailing \n
     lines = list(lines)                             # Convert string to list
 
-test_data = list('()())')                           # answer is 5; other input: ')', answer is 0
+test_data = list('()())')                           # answer is 5
 
 def whichFloor(data):                               # define function
     counter = 1                                     # initialize counter, starting at 1 due to break on line 35
