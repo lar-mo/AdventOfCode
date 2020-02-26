@@ -64,7 +64,7 @@ display = [top_layer[i:i+25] for i in range(0, len(top_layer), 25)] # create a l
 for k in range(len(display)):                                       # loop through all 6 lists (image height) (6px)
     for i, n in enumerate(display[k]):                              # replace 1s and 0s with different characters
         if n == '0':                                                # if the digit is 0 (black) ...
-            display[k][i] = "_"                                     # ... replace it with an underscore
+            display[k][i] = " "                                     # ... replace it with a space
         elif n == '1':                                              # elif the digits is 1 (white) ...
             display[k][i] = "◻️"                                    # ... replace it with an white square
 
